@@ -21,7 +21,7 @@
 	url = git://github.com/boundlessgeo/buildkit.git
 [submodule "geoexplorer/app/static/externals/gxp"]
 	path = geoexplorer/app/static/externals/gxp
-	url = git://github.com/boundlessgeo/gxp.git
+	url = git@github.com:ResourceDataInc/gxp.git
 [submodule "geoexplorer/app/static/externals/geoext"]
 	path = geoexplorer/app/static/externals/geoext
 	url = git://github.com/geoext/geoext.git

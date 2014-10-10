@@ -177,6 +177,12 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
             }, {
+                ptype: "gxp_googlegeocoder",
+                outputTarget: "map.tbar",
+                outputConfig: {
+                    emptyText: "Search for a location ..."
+                }
+            }, {
                 actions: ["->"],
                 actionTarget: "paneltbar"
             }, {

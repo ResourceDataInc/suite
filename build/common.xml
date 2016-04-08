@@ -105,7 +105,7 @@ Common build targets.
     Initializes maven executable.
     -->
     <target name="init-mvn">
-       <condition property="mvn.exe" value="mvn.bat" else="mvn">
+       <condition property="mvn.exe" value="mvn.cmd" else="mvn">
          <os family="windows"></os>
        </condition>
     </target>

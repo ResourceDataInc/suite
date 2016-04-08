@@ -1,0 +1,19 @@
+<assembly>
+  <id>geopackage</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>assembly/target/dependency</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>gs-geopkg-*.jar</include>
+        <include>gs-mbtiles-*.jar</include>
+        <include>gt-geopkg-*.jar</include>
+        <include>gt-mbtiles-*.jar</include>
+        <include>sqlite-jdbc-spatialite-*.jar</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>

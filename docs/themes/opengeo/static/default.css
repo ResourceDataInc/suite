@@ -64,18 +64,17 @@ General styles
 
 body {
 z-index: -1;
-padding-left: 20px;
 background: #fff;
 color: #000;
 font-family: "Open Sans", Helvetica, Arial, sans-serif;
 text-align:left !important; /* override blueprint's ie.css */
 }
 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
 font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
 height: auto; /* override blueprint's screen.css */
@@ -90,10 +89,10 @@ padding-left: 10px;
 width: 50px;
 }
 
-strong, 
+strong,
 em,
-dt, 
-b, 
+dt,
+b,
 i {
 }
 
@@ -118,7 +117,7 @@ text-decoration: underline;
 }
 
 a img {
-border: none; 
+border: none;
 }
 
 div {
@@ -144,14 +143,14 @@ margin: 0;
 }
 
 
-table, 
-td, 
+table,
+td,
 th {
 vertical-align: baseline; /* override blueprint's screen.css */
 }
 
-.error, 
-.notice, 
+.error,
+.notice,
 .success { /* override blueprint.css */
 border: 0 none transparent;
 margin-bottom: 0;
@@ -209,7 +208,7 @@ display: none;
 }
 
 .wrap {
-margin: auto; 
+margin: auto;
 padding: 0;
 width: 1000px;
 }
@@ -245,7 +244,7 @@ height: 50px;
 width: 100%;
 margin-top: 10px;
 border-bottom: 2px solid #00A78D;
-/* background: url(./chrome/topshelf.png) 0 100% no-repeat; Jill's chrome */ 
+/* background: url(./chrome/topshelf.png) 0 100% no-repeat; Jill's chrome */
 }
 
 #topshelftxt {
@@ -256,20 +255,27 @@ padding-left: 10px;
 color: #332722;
 }
 
-.disclaimer {
+#sidebar .pgClass h4.disclaimer {
 font-weight: bold;
-font-size: 12px;
+font-size: 1.2em;
 color: #BF381A;
-/*margin: -35px 0 0 6px;*/
+padding: 15px 0 15px 10px;
+border-bottom: 2px solid #BF381A;
+background: url(./chrome/stripes.png) 0% 100% no-repeat;
+}
+
+#distxt .distxtbold {
+font-weight: bold;
+margin-bottom: 5px;
 }
 
 #distxt {
-/*text-align: justify;*/
 color: #332722;
 font-size: 12px;
-margin: 4px 0 125px 7px;
+margin: 4px 0 150px 10px;
 height: 76px;
 width: 200px;
+line-height:1.6em;
 }
 
 #main {
@@ -289,8 +295,8 @@ font-size: 1.2em;
 
 #sidebar {
 width: 230px;
-margin: 0 40px 0 -15px; 
-padding: 58px 0 0 ;
+margin: 0 40px 0 -15px;
+padding: 43px 0 0 ;
 /*color: #0A2742;*/
 /*background: url(./chrome/sidebar-content-bg.png) no-repeat; */
 }
@@ -318,6 +324,13 @@ height: 40px;
 overflow: hidden;
 text-indent: -9999em;
 background: url("chrome/opengeo-logo.png") no-repeat;
+}
+
+.version_info {
+margin: 36px 0 0 0;
+float: right;
+color: #ffffff;
+font-size: 1.1em;
 }
 
 #account-nav {
@@ -409,14 +422,14 @@ position: absolute;
 font-size: 0.92em;
 border: 0;
 background: transparent;
-width: 145px; 
+width: 145px;
 margin: 6px 0 0 8px;
 }
 
 #quick-search-submit {
 position: absolute;
 margin-left: 160px;
-padding-top: 6px;	
+padding-top: 6px;
 }
 
 
@@ -426,8 +439,8 @@ Content
 #content #breadcrumbs {
 font-size: 0.85em;
 color: #F58D50;
-margin: -1205px 0 5px 0;
-padding: 7px 0;
+margin: -1211px 0 5px 0;
+padding: 10px 0;
 height: 20px;
 }
 
@@ -439,6 +452,7 @@ height: 1px;
 #content #breadcrumbs li {
 list-style-type: none;
 display: inline;
+font-size: 1.2em;
 }
 
 #content #breadcrumbs a {
@@ -488,7 +502,7 @@ font-size: 2em;
 margin: 0.2em 0 0.3em;
 }
 
-#content h2, 
+#content h2,
 #content h4 {
 border-bottom: 1px solid  #00A78D;
 padding: 0 4px;
@@ -505,7 +519,7 @@ line-height: 1.5;
 color: #00A78D;
 }
 
-#abbr, 
+#abbr,
 #content acronym {
 border-bottom: 0 none transparent;
 }
@@ -515,7 +529,7 @@ border: 1px solid #888;
 -webkit-box-shadow: 0.33em 0.33em 0.17em #888, 0.33em 0.33em 1em rgba(0,0,0,0.3);
 -o-box-shadow: 0.33em 0.33em 0.17em #888, 0.33em 0.33em 1em rgba(0,0,0,0.3);
 -moz-box-shadow: 0.33em 0.33em 0.17em #888, 0.33em 0.33em 1em rgba(0,0,0,0.3);
-box-shadow: 0.33em 0.33em 0.17em #888, 0.33em 0.33em 1em rgba(0,0,0,0.3); 
+box-shadow: 0.33em 0.33em 0.17em #888, 0.33em 0.33em 1em rgba(0,0,0,0.3);
 max-width:100%;
 }
 
@@ -542,7 +556,7 @@ font-size: 1.1em;
 }
 
 ul.search li div.context {
-color: #888; 
+color: #888;
 margin: 2px 0 0 30px;
 text-align: left;
 }
@@ -607,7 +621,7 @@ p.rubric {
 margin-top: 30px;
 color:#486300;
 font-size:1.7em;
-border-bottom:1px solid #486300; 
+border-bottom:1px solid #486300;
 padding:0 4px;
 font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
 
@@ -744,11 +758,11 @@ padding-right: 5px;
 pre {
 padding: 10px;
 background-color: #f8fcfb;
-color: #333; 
-border: 1px solid #00A78D; 
+color: #333;
+border: 1px solid #00A78D;
 border-left: none;
 border-right: none;
-font-size: .95em; 
+font-size: .95em;
 white-space: pre-wrap;       /* css-3 */
 white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
 white-space: -o-pre-wrap;    /* Opera 7 */
@@ -798,10 +812,10 @@ background-color: #F3F3F3
 }
 
 h1 tt,
-h2 tt, 
-h3 tt, 
-h4 tt, 
-h5 tt, 
+h2 tt,
+h3 tt,
+h4 tt,
+h5 tt,
 h6 tt {
 background-color: transparent;
 }
@@ -891,11 +905,11 @@ text-decoration: none;
 
 #sidebar a:hover {
 text-decoration: none;
-color: #F58D50; 
+color: #F58D50;
 }
 
 #sidebar .pgClass {
-width: 215px; 
+width: 215px;
 /*border-right: solid #BF381A 1px;*/
 }
 
@@ -916,12 +930,12 @@ padding: 0;
 }
 
 #sidebar .pgClass li {
-/* this next line seems to upset the SDK-API TOC 
+/* this next line seems to upset the SDK-API TOC
 - uncomment if that doc project reviewed */
 /*width: 200px;*/
 margin: 0 0 0.2em;
 padding: 0 0.3em 0 1em;
-list-style-type: none; 
+list-style-type: none;
 }
 
 .pgClass li .pre {
@@ -932,10 +946,10 @@ word-wrap: break-word;
 #sidebar .pgClass li:before {
 /*content: "\00BB \0020";*/
 margin: 0 0 0 -1em;
-} 
+}
 
 #sidebar #toc {
-margin: -30px 0 20px 13px;
+margin: -35px 0 20px 13px;
 }
 
 #sidebar #toc ul {
@@ -944,13 +958,13 @@ padding-top: 2px;
 }
 
 #sidebar #toc  a.current {
-color: #F58D50!important; 
+color: #F58D50!important;
 }
 
 #sidebar #toc li {
 font-size: 13px;
 font-weight: bold;
-font-family: "Proxima Nova", Helvetica, Arial, sans-serif; 
+font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
 }
 
 
@@ -1047,30 +1061,18 @@ Footer
 -----------------------*/
 
 #footer {
-/* background: #0A2742 url(./chrome/footer-bg.png) repeat-x; */
-/* background: #332722 url("chrome/footer-bg.png") repeat-x; */
-background-color: #00A78D;
-color: #d9d9d9;
-margin-left: -25px;
-margin-top: 40px;
-padding: 20px; 
-text-align: center;
+width: 100%;
+background-color: #7db5d2;
+height: 87px;
+font-size: 1.1em;
+color: #efefef;
 }
 
-#footer p {
-margin: 0;
-padding: 1em 0 0;
-color: #d9d9d9;
+#footer .footer-wrap {
+padding: 16px 0 0 0;
+width: 1000px;
+margin: auto;
 }
-
-#footer strong, 
-#footer em,
-#footer dt, 
-#footer b, 
-#footer i {
-color: #d9d9d9;
-}
-
 
 #footer a {
 color: #fff;
@@ -1078,9 +1080,47 @@ text-decoration: none;
 }
 
 #footer a:hover {
-color: #fff;
+color: #f58d50;
 text-decoration: underline;
 }
+
+#footer .footer-wrap a.boundless-logo {
+float: left;
+display: inline-block;
+margin: 15px 0 0 0;
+width: 154px;
+height: 30px;
+background-image: url(./chrome/boundless_logo_sprites.png);
+background-position: 0px 0px;
+}
+#footer .footer-wrap a.boundless-logo:hover {
+cursor: pointer;
+background-position: 0px -30px;
+}
+#footer .footer-center {
+width: 450px;
+margin: 0 auto;
+padding: 0 auto;
+text-align: center;
+}
+#footer .footer-center p {
+margin: 0 0 5px 0;
+}
+#footer .footer-right {
+float: right;
+margin-top: -46px;
+}
+.close-to-footer {
+text-align:center;
+font-family: "Open Sans", Helvetica, Arial, sans-serif;
+font-size: 1.3em;
+color: #bbb;
+letter-spacing: 1px;
+margin-top: 25px;
+margin-bottom: 10px;
+text-transform: uppercase;
+}
+
 
 /*-----------------------
 Miscellaneous

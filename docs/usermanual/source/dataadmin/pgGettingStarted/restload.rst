@@ -20,7 +20,7 @@ The next section describes how to link a PostGIS database to GeoSever and publis
           <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://localhost:8080/geoserver/rest/workspaces/opengeo.xml" type="application/xml"/>
         </workspace>
         <connectionParameters>
-          <entry key="port">54321</entry>
+          <entry key="port">5432</entry>
           <entry key="user">postgres</entry>
           <entry key="passwd">postgres</entry>
           <entry key="dbtype">postgis</entry>

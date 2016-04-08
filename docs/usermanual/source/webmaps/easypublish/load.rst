@@ -7,7 +7,7 @@ The first step is to load data into OpenGeo Suite. These are many tools and meth
 
 #. First, make sure OpenGeo Suite is running.
 
-#. Run GeoExplorer by clicking :guilabel:`GeoExplorer` in the :ref:`dashboard` or by navigating to its direct URL (such as ``http://localhost:8080/geoexplorer``).
+#. Run GeoExplorer by clicking :guilabel:`GeoExplorer` in the :ref:`intro.dashboard` or by navigating to its direct URL (such as ``http://localhost:8080/geoexplorer``).
 
    .. figure:: img/load_geoexplorer.png
 
@@ -67,6 +67,8 @@ The first step is to load data into OpenGeo Suite. These are many tools and meth
       *Progress bar during upload*
 
 #. Your file will be loaded as a database table, and this table will be loaded into GeoServer as a Layer. You should immediately see your layer in the Map Window.
+
+   .. note:: On some systems, the data may not be loaded into the database. Instead, the shapefile will be copied to the GeoServer data directory, and a new shapefile store will be created. You can verify this by navigating to the Stores page in the GeoServer admin interface and searching for the newly created store.
 
    .. figure:: img/load_success.png
 

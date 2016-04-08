@@ -9,7 +9,7 @@
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>mapmeter-*.jar</include>
-        <include>monitor-core-*.jar</include>
+        <include>gs-monitor-core-*.jar</include>
         <include>geoip-*.jar</include>
         <include>jcommon-*.jar</include>
         <include>jfreechart-*.jar</include>

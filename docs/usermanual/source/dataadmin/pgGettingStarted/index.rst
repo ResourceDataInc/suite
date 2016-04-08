@@ -10,6 +10,7 @@ This section describes how to get started with the PostGIS database included in 
 .. toctree::
    :maxdepth: 2
 
+   firstconnect
    pgadmin
    createdb
    shp2pgsql

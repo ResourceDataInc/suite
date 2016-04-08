@@ -15,17 +15,21 @@ Usage: $NAME <command> <args>
 List of commands:
     create      Create a new application.
     debug       Run an existing application in debug mode.
-    deploy      Deploy an application to a remote OpenGeo Suite instance.
+    package     Create a WAR file.
     
 See '$NAME <command> --help' for more detail on a specific command.
 "
 
 ## Usage for create command
 CREATE_USAGE="
-Usage: $NAME create <app-path>
+Usage: $NAME create <app-path> <app-template>
 
 Create a new application.  A new directory will be created using the <app-path> 
-argument (it must not already exist).
+argument (it must not already exist). Possible values for <app-template> are:
+
+    gxp        a template based on GXP, GeoExt and OpenLayers 2
+    ol3view    a template based on OpenLayers 3 and bootstrap for viewing
+    ol3edit    a template based on OpenLayers 3 and bootstrap for editing
 "
 
 ## Usage for debug command
@@ -46,35 +50,14 @@ List of options:
                                 application.
 "
 
-## Usage for deploy command
-DEPLOY_USAGE="
-Usage: $NAME deploy <options> <app-path>
+## Usage for package command
+PACKAGE_USAGE="
+Usage: $NAME package <app-path> <build-path>
 
-Deploy an existing application.  The <app-path> argument must be the path to an
-existing application.
+Package an existing application.  The <app-path> argument must be the path to an
+existing application. The <build-path> is the location where the WAR file package
+will be created.
 
-List of options:
-
-    -d | --domain       name    Domain name for remote Suite container (for 
-                                example: yourdomain.com).  The domain name does
-                                not include the protocol (e.g. http), port, or
-                                any other part of the URL.  Domain must be 
-                                provided to deploy an app.
-
-    -r | --remote-port  port    Port for the remote Suite container.  Default is
-                                8080.
-
-    -u | --username     user    Username for manager of remote Suite container.
-                                Username must be provided to deploy an app.
-
-    -p | --password     secret  Password for manager of remote Suite container.
-                                Password must be provided to deploy an app.
-
-    -c | --container    type    Identifier for remote Suite container.  Default
-                                is 'tomcat6x'.  Possible values include 
-                                'jetty6x', 'jboss7x', 'weblogic9x'.  See
-                                http://cargo.codehaus.org/ for details on
-                                supported containers.
 "
 
 # find sdk home
@@ -116,7 +99,7 @@ if [ $# -gt 0 ]; then
 fi
 
 case $COMMAND in
-    create|debug|deploy|version)
+    create|debug|package|version)
         # PASS
         ;;
     *)
@@ -139,26 +122,6 @@ until [ -z "$1" ]; do
             shift; LOCAL_PORT=$1; shift
             ANT_ARGS="$ANT_ARGS -Dapp.port=$LOCAL_PORT"
             ;;
-        -c|--container)
-            shift; CONTAINER=$1; shift
-            ANT_ARGS="$ANT_ARGS -Dsuite.container=$CONTAINER"
-            ;;
-        -u|--username)
-            shift; USERNAME=$1; shift
-            ANT_ARGS="$ANT_ARGS -Dsuite.username=$USERNAME"
-            ;;
-        -p|--password)
-            shift; PASSWORD=$1; shift
-            ANT_ARGS="$ANT_ARGS -Dsuite.password=$PASSWORD"
-            ;;
-        -d|--domain)
-            shift; DOMAIN=$1; shift
-            ANT_ARGS="$ANT_ARGS -Dsuite.domain=$DOMAIN"
-            ;;
-        -r|--remote-port)
-            shift; REMOTE_PORT=$1; shift
-            ANT_ARGS="$ANT_ARGS -Dsuite.port=$REMOTE_PORT"
-            ;;
         -h|--help)
             shift
             HELP=true
@@ -179,7 +142,7 @@ case $COMMAND in
             exit 0
         fi
         APP_PATH=$1
-        if [ $# -ne 1 -o -z "$APP_PATH" ]; then
+        if [ $# -ne 2 -o -z "$APP_PATH" ]; then
             echo "$CREATE_USAGE"
             exit 1
         fi
@@ -187,7 +150,12 @@ case $COMMAND in
             echo "Directory '$APP_PATH' already exists.  Supply the path for a new directory."
             exit 1
         fi
-        ANT_ARGS="$ANT_ARGS -Dapp.path=\"$APP_PATH\""
+        APP_TEMPLATE=$2
+        if [ $# -ne 2 -o -z "$APP_TEMPLATE" ]; then
+            echo "$CREATE_USAGE"
+            exit 1
+        fi
+        ANT_ARGS="$ANT_ARGS -Dapp.path=\"$APP_PATH\" -Dapp.template=\"$APP_TEMPLATE\""
         ;;
     debug )
         if $HELP ; then
@@ -205,26 +173,35 @@ case $COMMAND in
         fi
         ANT_ARGS="$ANT_ARGS -Dapp.path=\"$APP_PATH\""
         ;;
-    deploy )
+    package )
         if $HELP ; then
-            echo "$DEPLOY_USAGE"
+            echo "$PACKAGE_USAGE"
             exit 0
         fi
         APP_PATH=$1
-        if [ $# -ne 1 -o -z "$APP_PATH" ]; then
-            echo "$DEPLOY_USAGE"
+        if [ $# -lt 1 -o $# -gt 2 -o -z "$APP_PATH" ]; then
+            echo "$PACKAGE_USAGE"
             exit 1
         fi
         if [ ! -d "$APP_PATH" ]; then
             echo "Directory '$APP_PATH' doesn't exist.  Supply the path for an existing app directory."
             exit 1
         fi
-        ANT_ARGS="$ANT_ARGS -Dapp.path=\"$APP_PATH\""
+        if [ $# -eq 1 ]; then
+            WAR_PATH=$(pwd)
+        else
+            WAR_PATH=$2
+        fi
+        if [ -z "$WAR_PATH" ]; then
+            echo "$PACKAGE_USAGE"
+            exit 1
+        fi
+        ANT_ARGS="$ANT_ARGS -Dapp.path=\"$APP_PATH\" -Dapp.warpath=\"$WAR_PATH\""
         ;;
 esac
 
 # create log file (in case it doesn't already exist)
-LOG_FILE=~/.opengeo/logs/suite-sdk.log
+LOG_FILE=/tmp/suite-sdk/suite-sdk.log
 LOG_DIR=$(dirname -- "$LOG_FILE")
 
 mkdir -p "$LOG_DIR" &> /dev/null
@@ -242,11 +219,14 @@ CREATE_FAILURE="
 The '$NAME create' command failed.
 
 A common cause of this is the failure to create the provided directory:
-'$APP_PATH'
+'$APP_PATH'. Please ensure that the directory name is valid and that you
+have permission to create this directory.
 
-Please ensure that the directory name is valid and that you have permission
-to create this directory.  Run '$NAME create --help' for help on the usage.
-"
+Another common cause is that the <app-template> value is invalid
+(should be one of: gxp, ol3view or ol3edit). Option specified was: 
+'$APP_TEMPLATE'
+
+Please run '$NAME create --help' for help on the usage."
 
 DEBUG_START="
 Starting debug server for application (use CTRL+C to stop)"
@@ -265,22 +245,23 @@ Two commmon causes of this are:
 Please run '$NAME debug --help' for help on the usage.
 "
 
-DEPLOY_START="
-Deploying application (this may take a few moments) ..."
+PACKAGE_START="
+Packaging application ..."
 
-DEPLOY_FAILURE="
-The '$NAME deploy' command failed.
+PACKAGE_FAILURE="
+The '$NAME package' command failed.
 
-Common causes for this are misconfiguration of the container type (-c) or
-improper credentials (-u and -p) for your remote Suite instance.  Run
-'$NAME deploy --help' for help on the usage.
-"
+Two commmon causes of this are:
+* The ^<app-path^> directory does not contain a valid application: $APP_PATH
+* The ^<build-path^> directory must be valid and writeable: $WAR_PATH
+
+Please run '$NAME package --help' for help on the usage."
 
 # provide feedback that work is starting
 case $COMMAND in
     create) echo "$CREATE_START";;
     debug) echo "$DEBUG_START";;
-    deploy) echo "$DEPLOY_START";;
+    package) echo "$PACKAGE_START";;
 esac
 
 # run the command via ant
@@ -300,7 +281,7 @@ if [ $STATUS -ne 0 ]; then
                 echo "$DEBUG_FAILURE"
             fi
             ;;
-        deploy) echo "$DEPLOY_FAILURE";;
+        package) echo "$PACKAGE_FAILURE";;
     esac
     echo "See the logfile '$LOG_FILE' for more detail on what went wrong."
     echo

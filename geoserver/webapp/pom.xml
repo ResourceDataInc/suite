@@ -6,7 +6,7 @@
   <groupId>org.opengeo.geoserver</groupId>
   <artifactId>web-app</artifactId>
   <packaging>war</packaging>
-  <version>4.7-SNAPSHOT</version>
+  <version>4.8-SNAPSHOT</version>
   <name>OpenGeo Suite GeoServer Web App</name>
   <organization>
     <name>Boundless</name>
@@ -24,6 +24,15 @@
       <id>boundless</id>
       <name>Boundless Maven Repository</name>
       <url>https://boundless.artifactoryonline.com/boundless/snapshot/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    
+    <repository>
+      <id>boundless-libs-release-local</id>
+      <name>Boundless Libs-Release-Local Maven Repository</name>
+      <url>https://boundless.artifactoryonline.com/boundless/libs-release-local/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -48,12 +57,13 @@
   </repositories>
 
   <properties>
-    <gs.version>2.7-SNAPSHOT</gs.version>
-    <gt.version>13-SNAPSHOT</gt.version>
+    <gs.version>2.8-SNAPSHOT</gs.version>
+    <gt.version>14-SNAPSHOT</gt.version>
     <jetty.version>7.6.13.v20130916</jetty.version>
     <spring.version>3.2.10.RELEASE</spring.version>
     <spring.security.version>3.2.4.RELEASE</spring.security.version>
     <jackson.version>2.1.1</jackson.version>
+    <marlin.version>0.7.3-Unsafe</marlin.version>
   </properties>
 
   <dependencyManagement>
@@ -184,6 +194,11 @@
       <version>${gs.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-libjpeg-turbo</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.geoserver.importer</groupId>
       <artifactId>gs-importer-web</artifactId>
       <version>${gs.version}</version>
@@ -261,6 +276,12 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.marlin</groupId>
+      <artifactId>marlin</artifactId>
+      <version>${marlin.version}</version>
+    </dependency>
+
 
     <!-- jars shared between various extensions -->
     <dependency>

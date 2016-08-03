@@ -13,6 +13,7 @@ import org.opengis.style.ChannelSelection;
 import org.opengis.style.ColorMap;
 import org.opengis.style.ColorReplacement;
 import org.opengis.style.ContrastEnhancement;
+import org.opengis.style.ContrastMethod;
 import org.opengis.style.Description;
 import org.opengis.style.Displacement;
 import org.opengis.style.ExtensionSymbolizer;
@@ -352,6 +353,11 @@ public abstract class StyleAdaptor implements StyleVisitor {
     @Override
     public Object visit(ContrastEnhancement contrastEnhancement, Object data) {
         return data;
+    }
+
+    @Override
+    public void visit(ContrastMethod method, Object data) {
+        
     }
 
     @Override

@@ -7,10 +7,11 @@ import org.geoserver.catalog.DataStoreInfo;
 import org.geoserver.catalog.FeatureTypeInfo;
 import org.geoserver.catalog.LayerInfo;
 import org.geoserver.catalog.NamespaceInfo;
+import org.geoserver.catalog.SLDHandler;
+import org.geoserver.catalog.StyleGenerator;
 import org.geoserver.catalog.StyleInfo;
 import org.geoserver.catalog.WorkspaceInfo;
 import org.geoserver.config.GeoServerDataDirectory;
-import org.geoserver.importer.StyleGenerator;
 import org.geotools.data.DataStore;
 import org.geotools.data.DataStoreFactorySpi;
 import org.geotools.data.DataUtilities;
@@ -218,7 +219,7 @@ public class CatalogCreator {
                 styleGen.setWorkspace(parent.parent.workspace);
             }
 
-            return styleGen.createStyle(featureType);
+            return styleGen.createStyle(new SLDHandler(), featureType);
         }
 
         public DataStoreCreator store() {

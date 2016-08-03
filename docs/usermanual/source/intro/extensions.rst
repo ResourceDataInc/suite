@@ -172,6 +172,14 @@ For more information on using MongoDB, see the section on :ref:`dataadmin.mongod
 .. note:: This extension will only work when connecting to MongoDB databases at version 2.4 and above.
 
 
+.. _intro.extensions.netcdf:
+
+NetCDF
+------
+
+`Network Common Data Form (NetCDF) <http://www.unidata.ucar.edu/software/netcdf/>`_ is a format used to store array-oriented scientific data, such as meteorologic data. This version includes support for reading data in GRIB 1, GRIB 2, NetCDF 3 and 4 with CF (Climate and Forecast) formats.
+
+
 .. _intro.extensions.oracle:
 
 Oracle
@@ -191,7 +199,19 @@ SQL Server
 
 The SQL Server extension adds the ability for GeoServer to publish data from MS SQL Server databases (2008 and above only). Once this extension is added, GeoServer will show SQLServer as one of its available data sources when adding a new vector stores.
 
-   
+
+.. _intro.extensions.vectortiles:
+
+.. note:: OpenGeo Suite Enterprise only.
+
+Vector Tiles
+------------
+
+The Vector Tiles extension adds a number of output formats to GeoServer that deliver geographic data to a browser or other client application in tiles which using a vector representation of the features in the tile. Vector tiles improve the performance of maps fast while offering full client-side design flexibility. 
+
+For more information on Vector Tiles, please see the :ref:`dataadmin.vectortiles` section.
+
+
 .. _intro.extensions.wps:
 
 WPS

@@ -31,12 +31,16 @@ GeoServer :ref:`extensions <intro.extensions>` are distributed as a separate arc
      - Additional WMS and WFS metadata configuration for INSPIRE compliance
    * - ``mongodb``
      - MongoDB data format extension for GeoServer
+   * - ``netcdf``
+     - NetCDF data format support (read-only)
    * - ``oracle``
      - Oracle database extension for GeoServer
    * - ``scripting``
      - Scripting extension for GeoServer
    * - ``sqlserver``
      - SQL Server database extension for GeoServer
+   * - ``vectortiles``
+     - Vector tile output format support
    * - ``wps``
      - Web Processing Service (WPS) extension for GeoServer
 

@@ -38,6 +38,14 @@
           <param name="flags" value="-DskipTests"/>
         </antcall>
       </then>
+      <else>
+        <delete>
+          <fileset dir="target/geoserver/WEB-INF/lib">
+            <include name="gs-libjpeg-turbo*.jar"/>
+            <include name="*turbojpeg*.jar"/>
+          </fileset>
+        </delete>
+      </else>
     </if>
   </target>
 

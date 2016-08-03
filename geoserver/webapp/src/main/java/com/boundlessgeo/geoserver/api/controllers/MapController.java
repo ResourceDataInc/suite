@@ -455,12 +455,9 @@ public class MapController extends ApiController {
         SortBy sortBy = parseSort(sort);
 
         Integer total = cat.count(LayerGroupInfo.class, filter);
-
+        
         JSONObj obj = new JSONObj();
-        obj.put("total", total);
-        obj.put("page", page != null ? page : 0);
-        obj.put("count", Math.min(total, count != null ? count : total));
-
+        
         JSONArr arr = obj.putArray("maps");
         try (
             CloseableIterator<LayerGroupInfo> it =
@@ -470,9 +467,15 @@ public class MapController extends ApiController {
                 LayerGroupInfo map = it.next();
                 if( checkMap( map ) ){
                     map(arr.addObject(), map, wsName);
+                } else {
+                    //If a layer group is not shown, also remove it from the total count
+                    total--;
                 }
             }
         }
+        obj.put("total", total);
+        obj.put("page", page != null ? page : 0);
+        obj.put("count", Math.min(total, count != null ? count : total));
         return obj;
     }
     
@@ -658,7 +661,7 @@ public class MapController extends ApiController {
      * @return true if layergroup can be handled by composer
      */
     private boolean checkMap(LayerGroupInfo map) {
-        if( map.getMode() != Mode.SINGLE ) {
+        if( !(map.getMode() == Mode.SINGLE || map.getMode() == Mode.NAMED)) {
             return false;
         }
         for( int i = 0; i < map.styles().size(); i++){

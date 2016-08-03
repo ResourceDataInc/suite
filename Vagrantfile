@@ -28,15 +28,29 @@ Vagrant.configure(2) do |config|
     override.vm.box_url = 'https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box'
     aws.ami = "ami-d05e75b8"
 
-    aws.instance_type = 'c4.2xlarge'
-    aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 30 }]
+    aws.instance_type = 'c3.2xlarge'
+    aws.block_device_mapping = [
+      {
+        'DeviceName' => '/dev/sda1',
+        'Ebs.VolumeSize' => 30,
+      },
+      {
+        'DeviceName' => '/dev/sdb',
+        'VirtualName' => 'ephemeral0',
+      },
+      {
+        'DeviceName' => '/dev/sdc',
+        'VirtualName' => 'ephemeral1',
+      },
+    ]
     aws.tags = {
       'Name' => "#{$AWS_KEYPAIR_NAME}-suite-build-vagrant"
     }
 
     override.ssh.username = 'ubuntu'
 
-    override.vm.synced_folder '.', '/vagrant', type: 'rsync' #, rsync__exclude: '.git/'
+    override.vm.synced_folder '.', '/vagrant', disabled: true
+    override.vm.synced_folder '.', '/mnt/vagrant', type: 'rsync' #, rsync__exclude: '.git/'
   end
 
   # Share host's maven cache. Comment the following line to disable.
@@ -48,12 +62,21 @@ Vagrant.configure(2) do |config|
 
     sudo apt-get update
 
+    # sudo apt-get install -y git
+    # sudo mkdir /vagrant
+    # sudo chown ubuntu /vagrant
+    # git clone https://github.com/boundlessgeo/suite.git /vagrant
+    # cd /vagrant
+    # git submodule update --init --recursive
+    # cd ~
+
     wget --no-check-certificate https://github.com/aglover/ubuntu-equip/raw/master/equip_java7_64.sh && bash equip_java7_64.sh
-    sudo apt-get -y  install maven ant ivy
+    sudo apt-get -y install default-jdk
+    sudo apt-get -y install maven ant ivy
     sudo ln -s  /usr/share/java/ivy.jar /usr/share/ant/lib/ivy.jar
-    sudo apt-get -y  install python-setuptools
+    sudo apt-get -y install python-setuptools
     sudo easy_install jstools
-    sudo apt-get -y  install python-pip python-dev
+    sudo apt-get -y install python-pip python-dev
     sudo pip install -U Sphinx
 
     # the standard ubuntu node install doesnt work very well and is VERY old.  Use this one instead
@@ -64,6 +87,10 @@ Vagrant.configure(2) do |config|
     sudo npm install -g grunt-cli
     sudo npm install -g gulp
     sudo apt-get -y install gdal-bin ### Do we need one from our own repo?
+
+    if [ ! -d /vagrant ]; then
+      sudo ln -s /mnt/vagrant /vagrant
+    fi
 
     echo """#!/bin/bash
       cd /vagrant

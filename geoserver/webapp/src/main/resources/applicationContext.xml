@@ -21,6 +21,12 @@
       <constructor-arg ref="catalog"/>
     </bean>
     
+    <!-- Hide the composer-importer bean from geoserver -->
+    <bean class="com.boundlessgeo.geoserver.ComposerImporterFilter">
+    </bean>
+    <bean id="composer-importer" class="org.geoserver.importer.Importer">
+      <constructor-arg ref="catalog"/>
+    </bean>
     <!-- configure thumbnail cache -->
     <bean id="config" class="com.boundlessgeo.geoserver.AppConfiguration">
       <constructor-arg ref="catalog"/>

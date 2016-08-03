@@ -12,9 +12,9 @@ This section describes how to upgrade OpenGeo Suite to **OpenGeo Suite Enterpris
 Upgrade process
 ---------------
 
-#. To upgrade, you must first :ref:`uninstall <intro.installation.windows.uninstall>` your current version of OpenGeo Suite. Your data and settings will be preserved.
-
 .. warning:: OpenGeo Suite Enterprise for Windows requires `.NET Framework 4 <http://www.microsoft.com/en-us/download/details.aspx?id=17851>`_. Installation will fail if not present.
+
+#. To upgrade, you must first :ref:`uninstall <intro.installation.windows.uninstall>` your current version of OpenGeo Suite. Your data and settings will be preserved.
 
 #. Double-click the :file:`OpenGeoSuiteEnterprise.exe` file.
 

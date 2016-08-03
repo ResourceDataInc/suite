@@ -5,38 +5,39 @@ What's new in |version|
 
 **This version is a maintenance release** that contains dozens of bug fixes and performance improvements.
 
+In addition, OpenGeo Suite |version| includes the following new features:
 
-Version 4.7 included the following updated features:
+**Vector tiles output format**
 
-**WPS Builder**
+:ref:`Vector tiles <dataadmin.vectortiles>` are a way to deliver geographic data to a browser or other client application. Vector tiles are similar to raster tiles but the data is actually a vector representation of the features in the tile. Vector tiles improve the performance of maps while offering full client-side design flexibility. 
 
-New graphical utility for configuring and executing WPS processes in GeoServer.
+**NetCDF support**
 
-.. note:: Read more about :ref:`WPS Builder <processing.wpsbuilder>`.
+`Network Common Data Form (NetCDF) <http://www.unidata.ucar.edu/software/netcdf/>`_ is a format used to store array-oriented scientific data, such as meteorologic data. This version includes support for reading data in GRIB 1, GRIB 2, NetCDF 3 and 4 with CF (Climate and Forecast) formats.
 
-**Composer / YSLD**
+**AWS S3 tile cache for GeoWebCache**
 
-* Added additional supported formats, to match GeoServer import functionality
-* Color swatches for color codes for easier identification
-* Full screen YSLD editing mode
-* Complete YSLD hinter for assistance with syntax
-* Improvements in YSLD syntax
-* Recent alerts dialog for parsing errors
-* Graceful automatic logout
+This new tile store option allows for storing tiles in an Amazon Web Services (AWS) Simple Storage Service (S3) bucket, retrieved using a TMS-like URL structure.
 
-.. note:: Read more about :ref:`Composer <webmaps.composer>` and the :ref:`YSLD <cartography.ysld>` markup language.
+.. note:: For more information, please see the `GeoWebCache documentation <http://suite.opengeo.org/docs/latest/geowebcache/configuration/storage.html>`_.
 
-**CloudWatch**
+**Improved rendering performance**
 
-New GeoServer extension for integrating GeoServer with Amazon CloudWatch.
+The Marlin renderer is an open source Java rendering engine optimized for performance, based on OpenJDK's Pisces implementation. With this, vector rendering is much improved over the standard engine.
 
-.. note:: Read more about the :ref:`CloudWatch extension <sysadmin.cloudwatch>`.
+In addition, OpenGeo Suite Enterprise installs include :ref:`libjpeg-turbo <sysadmin.libjpeg-turbo>`, which provides a significant performance enhancement for JPEG encoding in GeoServer WMS output (up to 40% faster than with no native libraries, equal or greater performance than with Native ImageIO).
 
-**GeoMesa**
+**GeoServer 2.8**
 
-New GeoServer extension for integrating GeoServer with GeoMesa and Accumulo.
+The most recent branch of GeoServer includes improvements such as Z-order rendering, contrast enhancement, and curve support.
 
-**Java**
+.. note:: For more information, please see the `GeoServer 2.8 release notes <http://blog.geoserver.org/2015/09/30/geoserver-2-8-0-released/>`_.
 
-Java 8 is now supported for OpenGeo Suite on all platforms. Java 7 remains the default. OpenGeo Suite is tested with both Oracle JRE and OpenJDK.
+**Components included**
+
+* GeoServer 2.8
+* GeoWebCache 1.8
+* PostgreSQL 9.3
+* PostGIS 2.1.7
+* OpenLayers 3.7.0
 

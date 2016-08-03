@@ -13,9 +13,6 @@
 [submodule "geoserver/externals/geoscript/py"]
 	path = geoserver/externals/geoscript/py
 	url = git://github.com/geoscript/geoscript-py.git
-[submodule "geoserver/externals/geoscript/js"]
-	path = geoserver/externals/geoscript/js
-	url = git://github.com/geoscript/geoscript-js.git
 [submodule "geoexplorer/externals/buildkit"]
 	path = geoexplorer/externals/buildkit
 	url = git://github.com/boundlessgeo/buildkit.git
@@ -43,6 +40,7 @@
 [submodule "geoserver/externals/wps-gui"]
 	path = geoserver/externals/wps-gui
 	url = https://github.com/boundlessgeo/wps-gui.git
-[submodule "geoserver/externals/geomesa"]
-	path = geoserver/externals/geomesa
+[submodule "geoserver/externals/geomesa/geomesa"]
+	path = geoserver/externals/geomesa/geomesa
 	url = https://github.com/boundlessgeo/geomesa.git
+	branch = opengeo_suite_4.8

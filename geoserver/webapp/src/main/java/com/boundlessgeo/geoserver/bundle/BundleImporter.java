@@ -251,6 +251,11 @@ public class BundleImporter {
         NodeList names = e.getElementsByTagName("name");
         if (names.getLength() > 0) {
             String styleName = names.item(0).getTextContent();
+            //Strip off workspace
+            int seperator = styleName.indexOf(':');
+            if (seperator >= 0) {
+                styleName = styleName.substring(seperator+1, styleName.length());
+            }
             return styleName;
         }
         return null;

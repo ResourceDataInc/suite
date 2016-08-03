@@ -182,6 +182,9 @@ The following packages are available:
    * - ``geoserver-mongodb``
      - MongoDB data format extension for GeoServer
      - OpenGeo Suite Enterprise only
+   * - ``geoserver-netcdf``
+     - NetCDF data format support (read-only)
+     - All versions
    * - ``geoserver-oracle``
      - Oracle database extension for GeoServer
      - OpenGeo Suite Enterprise only

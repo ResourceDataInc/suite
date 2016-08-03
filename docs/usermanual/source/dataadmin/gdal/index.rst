@@ -68,9 +68,13 @@ Windows application server
 
 .. note:: This section is for installing GDAL image formats on a Windows-based installation of OpenGeo Suite for Application Servers (WAR bundle).
 
+.. warning:: OpenGeo Suite for Windows requires `.NET Framework 4.5 <https://www.microsoft.com/en-us/download/details.aspx?id=30653>`_. Installation will fail if not present.
+
+#. Download and install the `Visual C++ Redistributable for Visual Studio 2012 Update 4 <https://www.microsoft.com/en-ca/download/details.aspx?id=30679>`_. 
+
 #. Navigate to http://data.boundlessgeo.com/gdal_support/.
 
-#. Download the file with a version number that most closely matches the version of OpenGeo Suite. For example, the file :file:`gdal_win_suite_40.zip` would be appropriate for OpenGeo Suite 4.x.
+#. Download the file with a version number that most closely matches the version of OpenGeo Suite.
 
    .. note:: This file requires a 32-bit Java/Tomcat.
 
@@ -88,7 +92,7 @@ Windows application server
 
    #. Edit the file :file:`<TOMCAT_HOME>\\bin\\setenv.bat` and add the following line::
 
-         set PATH='C:\Program Files\GDAL\;%PATH%'
+         set "PATH=C:\Program Files\GDAL\;%PATH%"
  
       replacing :file:`C:\\Program Files\\GDAL\\` with the path where the archive was extracted.
 
@@ -117,11 +121,17 @@ OS X application server
 
 #. Download the file with a version number that most closely matches the version of OpenGeo Suite. For example, the file :file:`gdal_osx_suite_40.zip` would be appropriate for OpenGeo Suite 4.x.
 
-#. Extract the contents of the archive into :file:`/usr/local/lib/`.  The path may not exist, so it may need to be created first.
+#. Extract the contents of the archive to a location of your choosing.
 
-#. Create (or edit) a file called :file:`setenv.sh` located in $TOMCAT_HOME/bin, and add the following line::
+#. Create (or edit) a file called :file:`setenv.sh` located in $TOMCAT_HOME/bin, and add the following line:
 
-      export DYLD_LIBRARY_PATH=/usr/local/lib:$DYLD_LIBRARY_PATH`
+   .. code-block:: console
+
+      export DYLD_LIBRARY_PATH=<GDAL_PATH>:$DYLD_LIBRARY_PATH
+
+   replacing <GDAL_PATH> with the directory the archive was extracted to in the previous step.
+
+#. Extract the file :file:`gdal-A.B.C.jar` (where A.B.C is a version number) from the archive. Copy into :file:`<TOMCAT_HOME>\\webapps\\geoserver\\WEB-INF\\lib\\`, where :file:`<TOMCAT_HOME>` is the location where Tomcat is installed (such as :file:`/opt/tomcat/`).
 
 #. Restart Tomcat.
 

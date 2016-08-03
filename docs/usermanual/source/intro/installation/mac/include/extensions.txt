@@ -5,13 +5,15 @@ Extensions to GeoServer are available in a folder called :guilabel:`GeoServer Ex
 
 Double-click to open this folder and you will see individual folders for each extension.
 
-.. figure:: img/ext_folders-basic.png
+.. Removed these graphics because it's too hard to keep them updated.
 
-   GeoServer extension folders (OpenGeo Suite)
+.. .. figure:: img/ext_folders-basic.png
 
-.. figure:: img/ext_folders-ee.png
+..   GeoServer extension folders (OpenGeo Suite)
 
-   GeoServer extension folders (OpenGeo Suite Enterprise)
+.. .. figure:: img/ext_folders-ee.png
+
+..    GeoServer extension folders (OpenGeo Suite Enterprise)
 
 To install an extension:
 

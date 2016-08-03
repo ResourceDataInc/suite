@@ -101,11 +101,17 @@ GeoServer Extensions
    * - MongoDB
      - :ref:`MongoDB <dataadmin.mongodb>` database support.
      - OpenGeo Suite Enterprise only
+   * - NetCDF
+     - NetCDF data format support (read-only)
+     - All versions
    * - Oracle
      - :ref:`Oracle <dataadmin.oracle>` database support.
      - OpenGeo Suite Enterprise only
    * - SQL Server
      - SQL Server database support.
+     - OpenGeo Suite Enterprise only
+   * - Vector Tiles
+     - Vector tile output format support.
      - OpenGeo Suite Enterprise only
    * - WPS
      - :ref:`Web Processing Service (WPS) <processing>` support.

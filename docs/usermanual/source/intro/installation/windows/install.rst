@@ -18,7 +18,7 @@ This section describes how to perform a new installation of **OpenGeo Suite** |v
 Installation
 ------------
 
-.. warning:: OpenGeo Suite for Windows requires `.NET Framework 4 <http://www.microsoft.com/en-us/download/details.aspx?id=17851>`_. Installation will fail if not present.
+.. warning:: OpenGeo Suite for Windows requires `.NET Framework 4.5 <https://www.microsoft.com/en-us/download/details.aspx?id=30653>`_. Installation will fail if not present.
 
 #. Double-click the :file:`OpenGeoSuite.exe` file.
 

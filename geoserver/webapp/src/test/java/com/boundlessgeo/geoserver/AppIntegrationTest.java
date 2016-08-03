@@ -8,6 +8,7 @@ import com.boundlessgeo.geoserver.api.controllers.IconController;
 import com.boundlessgeo.geoserver.api.controllers.ImportController;
 import com.boundlessgeo.geoserver.api.controllers.StoreController;
 import com.boundlessgeo.geoserver.api.controllers.WorkspaceController;
+import com.boundlessgeo.geoserver.catalog.UploadDeleteCatalogListener;
 import com.boundlessgeo.geoserver.json.JSONArr;
 import com.boundlessgeo.geoserver.json.JSONObj;
 import com.boundlessgeo.geoserver.util.NameUtil;
@@ -32,11 +33,11 @@ import org.geoserver.config.GeoServerInfo;
 import org.geoserver.config.SettingsInfo;
 import org.geoserver.data.test.SystemTestData;
 import org.geoserver.importer.Importer;
-import org.geoserver.ows.util.ResponseUtils;
 import org.geoserver.platform.GeoServerExtensions;
 import org.geoserver.platform.resource.Resource;
 import org.geoserver.rest.util.RESTUtils;
 import org.geoserver.test.GeoServerSystemTestSupport;
+import org.geoserver.web.GeoServerApplication;
 import org.geoserver.ysld.YsldHandler;
 import org.geotools.data.DataAccess;
 import org.geotools.data.FeatureSource;
@@ -243,9 +244,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         RESTUtils.loadMapFromGlobal().remove("root");
         assertNull(catalog.getLayerByName("gs:point"));
 
-        Importer importer =
-            GeoServerExtensions.bean(Importer.class, applicationContext);
-        ImportController ctrl = new ImportController(getGeoServer(), importer);
+        ImportController ctrl = new ImportController(getGeoServer(), applicationContext);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setContextPath("/geoserver");
@@ -260,7 +259,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         
         //Wait for the import to complete
         result = pollImport(ctrl, "gs", id, "pending", request);
-        verifyImporterEndpoint(result.str("importerEndpoint"), request);
         assertNotNull(result);
         result = ctrl.update("gs", id, getUpdateTasks(result), request);
         result = pollImport(ctrl, "gs", id, "complete", request);
@@ -299,6 +297,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
     @Test
     public void testImportShapefiles() throws Exception {
         Catalog catalog = getCatalog();
+        catalog.addListener(new UploadDeleteCatalogListener(catalog));
         //Test REST global root
         GeoServerInfo gsInfo = GeoServerExtensions.bean(GeoServer.class).getGlobal();
         SettingsInfo info = gsInfo.getSettings();
@@ -306,9 +305,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         getGeoServer().save(gsInfo);
         assertNull(catalog.getLayerByName("gs:point"));
 
-        Importer importer =
-            GeoServerExtensions.bean(Importer.class, applicationContext);
-        ImportController ctrl = new ImportController(getGeoServer(), importer);
+        ImportController ctrl = new ImportController(getGeoServer(), applicationContext);
         StoreController storeCtrl = new StoreController(getGeoServer());
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -337,7 +334,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         //Wait for the import to complete
         result = pollImport(ctrl, "gs", id, "pending", request);
         assertNotNull(result);
-        verifyImporterEndpoint(result.str("importerEndpoint"), request);
         result = ctrl.update("gs", id, getUpdateTasks(result), request);
         result = pollImport(ctrl, "gs", id, "complete", request);
         assertNotNull(result);
@@ -392,9 +388,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         getGeoServer().save(gsInfo);
         assertNull(catalog.getLayerByName("gs:point_space"));
 
-        Importer importer =
-            GeoServerExtensions.bean(Importer.class, applicationContext);
-        ImportController ctrl = new ImportController(getGeoServer(), importer);
+        ImportController ctrl = new ImportController(getGeoServer(), applicationContext);
         StoreController storeCtrl = new StoreController(getGeoServer());
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -423,7 +417,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         //Wait for the import to complete
         result = pollImport(ctrl, "gs", id, "pending", request);
         assertNotNull(result);
-        verifyImporterEndpoint(result.str("importerEndpoint"), request);
         result = ctrl.update("gs", id, getUpdateTasks(result), request);
         result = pollImport(ctrl, "gs", id, "complete", request);
         assertNotNull(result);
@@ -449,9 +442,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         Catalog catalog = getCatalog();
         assertNull(catalog.getLayerByName("gs:point"));
         
-        Importer importer =
-            GeoServerExtensions.bean(Importer.class, applicationContext);
-        ImportController ctrl = new ImportController(getGeoServer(), importer);
+        ImportController ctrl = new ImportController(getGeoServer(), applicationContext);
         
         try (H2TestData data = new H2TestData()) {
             
@@ -466,7 +457,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
             Long id = Long.parseLong(result.str("id"));
             result = pollImport(ctrl, "gs", id, "pending", request);
             assertNotNull(result);
-            verifyImporterEndpoint(result.str("importerEndpoint"), request);
             assertTrue(result.integer("tasksTotal") > 0);
             List<String> names = Arrays.asList(new String[]{"ft1","ft2","ft3"});
             JSONArr tasks = new JSONArr();
@@ -476,7 +466,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
                     assertEquals("table", o.get("type"));
                 }
             }
-            assertTrue(tasks.size() > 0);
             JSONObj response = new JSONObj();
             response.put("tasks", tasks);
             
@@ -539,9 +528,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         StoreInfo targetStore = catalog.getStoreByName("sf", "sf", StoreInfo.class);
         assertNotNull(targetStore);
         
-        Importer importer =
-                GeoServerExtensions.bean(Importer.class, applicationContext);
-        ImportController ctrl = new ImportController(getGeoServer(), importer);
+        ImportController ctrl = new ImportController(getGeoServer(), applicationContext);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setContextPath("/geoserver");
@@ -557,7 +544,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         //Wait for the import to complete
         result = pollImport(ctrl, "gs", id, "pending", request);
         assertNotNull(result);
-        verifyImporterEndpoint(result.str("importerEndpoint"), request);
         result = ctrl.update("gs", id, getUpdateTasks(result), request);
         result = pollImport(ctrl, "gs", id, "complete", request);
         assertNotNull(result);
@@ -589,12 +575,6 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         return response.put("tasks", tasks);
     }
     
-    private void verifyImporterEndpoint(String url, HttpServletRequest request) throws Exception {
-        String baseURL = ResponseUtils.baseURL(request)+"geoserver/";
-        String relativeURL = url.substring(baseURL.length());
-        com.mockrunner.mock.web.MockHttpServletResponse res = getAsServletResponse(relativeURL);
-        assertEquals("application/json", res.getContentType());
-    }
     private JSONObj pollImport(ImportController ctrl, String ws, Long id, String state, HttpServletRequest request) {
         int attempts = 100;
         int interval = 10;
@@ -614,15 +594,20 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
         
         return null;
     }
+    
+    @Test
+    public void testImporterBeans() {
+        //This will throw an exception if multiple beans are visible to geoserver
+        GeoServerExtensions.bean(Importer.class, applicationContext);
+    }
+    
     @Test
     public void testImportInfo() throws IOException {
         Catalog catalog = getCatalog();
         StoreInfo targetStore = catalog.getStoreByName("sf", "sf", StoreInfo.class);
         assertNotNull(targetStore);
         
-        Importer importer =
-                GeoServerExtensions.bean(Importer.class, applicationContext);
-        ImportController ctrl = new ImportController(getGeoServer(), importer);
+        ImportController ctrl = new ImportController(getGeoServer(), applicationContext);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setContextPath("/geoserver");

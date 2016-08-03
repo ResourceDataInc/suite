@@ -19,3 +19,4 @@ jetty/lib
 /data_dir
 geoserver/webapp/proxy.json
 /build_output.txt
+*~

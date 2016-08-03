@@ -19,4 +19,5 @@ This section describes some strategies on how to work with your data using OpenG
    gdal/index
    mrsid/index
    geopackage/index
+   vectortiles/index
    importer/index

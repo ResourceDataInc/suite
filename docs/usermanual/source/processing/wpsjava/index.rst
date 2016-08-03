@@ -224,6 +224,7 @@ The previous steps created a Java package ``org.example.wps`` in which to implem
 
    * The ``execute`` method will be called when the WPS request is processed by GeoServer. The method takes two parameters of type ``Geometry``: a polygon to be split and the line doing the splitting.
    * The ``polygonize`` method is not public because it is internal to the process and need not be exposed.
+   * The return type of the polygonize(Geometry geometry) function is ``Geometry``. **Each process is required to return a result**, so a static void method cannot be advertised as a process.
    * The process will be given a namespace (prefix) of "custom".
    * The full name of the process will be **custom:splitPolygon**.
 
@@ -234,7 +235,7 @@ The previous steps created a Java package ``org.example.wps`` in which to implem
       @DescribeProcess(title = "splitPolygon", description = "Splits a polygon by a linestring")
       @DescribeResult(description = "Geometry collection created by splitting the input polygon")
 
-   The ``DescripeProcess`` annotation provides the process description for the DescribeProcess request. The ``DescribeResult`` annotation provides the description of the output of the process.
+   The ``DescripeProcess`` annotation provides the process description for the DescribeProcess request. The ``DescribeResult`` annotation provides the description of the output of the process, which, as previously mentioned, is ``Geometry``.
 
 #. Replace the initial definition line for the ``splitPolygon`` class:
 

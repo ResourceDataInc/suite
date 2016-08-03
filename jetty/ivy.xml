@@ -6,6 +6,8 @@
       <dependency org="org.eclipse.jetty" name="jetty-deploy" rev="${jetty.version}"/>
       <dependency org="org.eclipse.jetty" name="jetty-server" rev="${jetty.version}"/>
       <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="${jetty.version}"/>
+      <!-- jetty-servlets added for CORS support, see SUITE-1468 -->
+      <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="${jetty.version}"/>
       <dependency org="org.eclipse.jetty" name="jetty-util" rev="${jetty.version}"/>
       <dependency org="org.eclipse.jetty" name="jetty-xml" rev="${jetty.version}"/>
       <dependency org="org.eclipse.jetty" name="jetty-start" rev="${jetty.version}"/>

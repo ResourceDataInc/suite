@@ -18,13 +18,13 @@ Installation
 
 .. warning:: OpenGeo Suite for Windows requires `.NET Framework 4 <http://www.microsoft.com/en-us/download/details.aspx?id=17851>`_. Installation will fail if not present.
 
-#. Shutdown all OpenGeo Suite services by navigating to :menuselection:`Start Menu --> All Programs --> OpenGeo Suite` and using the :guilabel:`Stop` shortcuts. Alternately, services can be stopped from the Windows :guilabel:`Services` dialog, and stopping both the **OpenGeo Jetty** and **OpenGeo PostgreSQL** services. 
+#. Shutdown all OpenGeo Suite services by navigating to :menuselection:`Start Menu --> All Programs --> OpenGeo Suite` and using the :guilabel:`Stop` shortcuts. 
 
    .. figure:: img/startstop_services.png
 
       Starting and stopping OpenGeo Suite services
 
-   Services can also be controlled from the Windows :guilabel:`Services` dialog available by navigating to :menuselection:`Administrative Tools --> Services` from the Windows :guilabel:`Control Panel`.
+   Alternately, services can be stopped from the Windows :guilabel:`Services` dialog, and stopping both the **OpenGeo Jetty** and **OpenGeo PostgreSQL** services. Services can be found at :menuselection:`Administrative Tools --> Services` from the Windows :guilabel:`Control Panel`.
 
 #. Double-click the :file:`OpenGeoSuite.exe` file.
 

@@ -13,12 +13,13 @@ OpenGeo Suite is a complete web-based geospatial software stack. The application
 
 Also included is the **Boundless SDK**, which allows you to create web map applications using code from the following libraries:
 
-* **GeoExt** - JavaScript framework for rich desktop-looking web applications
 * **OpenLayers** - JavaScript library for viewing and interacting with geospatial data in the browser
+* **GeoExt** - JavaScript framework for rich desktop-looking web applications
 
-Finally, for **OpenGeo Suite Enterprise only**:
+Tor **OpenGeo Suite Enterprise only**:
 
 * **Composer** - Web-based map configuration and styling utility
+* **WPS Builder** - Web-based constructor for server-side processing
 
 .. todo:: Provide links to things?
 

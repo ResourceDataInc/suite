@@ -42,16 +42,19 @@ import org.geoserver.importer.Importer;
 import org.geoserver.importer.SpatialFile;
 import org.geoserver.importer.Table;
 import org.geoserver.importer.job.Task;
+import org.geoserver.platform.ContextLoadedEvent;
 import org.geoserver.platform.resource.Paths;
 import org.geoserver.ows.util.ResponseUtils;
 import org.geoserver.platform.resource.Resource;
 import org.geoserver.rest.util.RESTUploadExternalPathMapper;
 import org.geoserver.rest.util.RESTUploadPathMapper;
 import org.geoserver.rest.util.RESTUtils;
+import org.geoserver.ysld.YsldHandler;
 import org.geotools.data.DataAccessFactory.Param;
 import org.geotools.data.DataStoreFactorySpi;
 import org.geotools.util.logging.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,9 +94,11 @@ public class ImportController extends ApiController {
     private static Logger LOG = Logging.getLogger(ImportController.class);
 
     @Autowired
-    public ImportController(GeoServer geoServer, Importer importer) {
+    public ImportController(GeoServer geoServer, ApplicationContext ctx) {
         super(geoServer);
-        this.importer = importer;
+        
+        this.importer = (Importer) ctx.getBean("composer-importer");
+        this.importer.setStyleHandler(new YsldHandler());
         this.hasher = new Hasher(7);
     }
     
@@ -506,7 +511,7 @@ public class ImportController extends ApiController {
                 prepTask(t, ws, dataDir);
             }
         }
-        helper.setTask(importer.getTask(importer.runAsync(imp, f)));
+        helper.setTask(importer.getTask(importer.runAsync(imp, f, false)));
         return get(ws.getName(), helper.id, request);
     }
     
@@ -639,7 +644,8 @@ public class ImportController extends ApiController {
             }
             return result;
         }
-        result.put("importerEndpoint", ResponseUtils.baseURL(request)+"geoserver/rest/imports/"+imp.getId());
+        //Remove this while GeoServer and Composer use seperate Importer objects
+        //result.put("importerEndpoint", ResponseUtils.baseURL(request)+"geoserver/rest/imports/"+imp.getId());
         
         JSONArr tasks = result.putArray("tasks");
 
